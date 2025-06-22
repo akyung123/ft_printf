@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_width.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akkim <akkim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 02:13:45 by akkim             #+#    #+#             */
-/*   Updated: 2025/06/23 02:19:57 by akkim            ###   ########.fr       */
+/*   Created: 2025/06/23 02:13:33 by akkim             #+#    #+#             */
+/*   Updated: 2025/06/23 03:32:32 by akkim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdarg.h>
+#include "ft_printf.h"
 
-int ft_printf(const char *format, ...)
+int	ft_printf_width(unsigned int width, int length, int pad)
 {
-        va_list arg;
-        int done;
+	// 0 and ' '!
+	int	count;
+	count = 0;
 
-        va_start(arg, format);
-        done = ft_vfprintf(format, arg);
-        
-        va_end(arg);
-        return done;
+	while (width > length)
+	{
+		if (pad == 0)
+			ft_putchar_fd('0', 1);
+		else
+			ft_putchar_fd(' ', 1);
+		width--;
+		count++;
+	}
+
+	return (count);	
 }

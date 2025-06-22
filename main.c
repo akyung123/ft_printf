@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akkim <akkim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 02:13:45 by akkim             #+#    #+#             */
-/*   Updated: 2025/06/23 02:19:57 by akkim            ###   ########.fr       */
+/*   Created: 2025/06/23 02:22:18 by akkim             #+#    #+#             */
+/*   Updated: 2025/06/23 05:06:40 by akkim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdarg.h>
+#include <stdio.h>
+#include "ft_printf.h"
 
-int ft_printf(const char *format, ...)
+int main()
 {
-        va_list arg;
-        int done;
+	char c;
+	c = 'h';
 
-        va_start(arg, format);
-        done = ft_vfprintf(format, arg);
-        
-        va_end(arg);
-        return done;
+	ft_printf(" %5c", c);
 }

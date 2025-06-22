@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akkim <akkim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 02:13:45 by akkim             #+#    #+#             */
-/*   Updated: 2025/06/23 02:19:57 by akkim            ###   ########.fr       */
+/*   Created: 2025/04/08 17:57:18 by akkim             #+#    #+#             */
+/*   Updated: 2025/06/23 03:18:50 by akkim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdarg.h>
-
-int ft_printf(const char *format, ...)
+void	ft_putchar_fd(char c, int fd)
 {
-        va_list arg;
-        int done;
-
-        va_start(arg, format);
-        done = ft_vfprintf(format, arg);
-        
-        va_end(arg);
-        return done;
+	if (fd < 0)
+		return ;
+	write(fd, &c, 1);
 }

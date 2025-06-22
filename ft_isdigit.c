@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akkim <akkim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 02:13:45 by akkim             #+#    #+#             */
-/*   Updated: 2025/06/23 02:19:57 by akkim            ###   ########.fr       */
+/*   Created: 2025/04/01 12:55:53 by akkim             #+#    #+#             */
+/*   Updated: 2025/06/23 03:13:12 by akkim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdarg.h>
-
-int ft_printf(const char *format, ...)
+int	ft_isdigit(int c)
 {
-        va_list arg;
-        int done;
-
-        va_start(arg, format);
-        done = ft_vfprintf(format, arg);
-        
-        va_end(arg);
-        return done;
+	if (48 <= c && c <= 57)
+		return (1);
+	return (0);
 }

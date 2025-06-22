@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akkim <akkim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 02:13:45 by akkim             #+#    #+#             */
-/*   Updated: 2025/06/23 02:19:57 by akkim            ###   ########.fr       */
+/*   Created: 2025/04/01 14:13:28 by akkim             #+#    #+#             */
+/*   Updated: 2025/06/23 03:17:31 by akkim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdarg.h>
-
-int ft_printf(const char *format, ...)
+int	ft_atoi(const char *str)
 {
-        va_list arg;
-        int done;
+	int	num;
+	int	sign;
 
-        va_start(arg, format);
-        done = ft_vfprintf(format, arg);
-        
-        va_end(arg);
-        return done;
+	num = 0;
+	sign = 1;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-')
+	{
+		sign *= -1;
+		str++;
+	}
+	else if (*str == '+')
+		str++;
+	while (*str >= '0' && *str <= '9')
+	{
+		num = num * 10 + (*str - '0') * sign;
+		str++;
+	}
+	return (num);
 }

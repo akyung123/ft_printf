@@ -1,25 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_format.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akkim <akkim@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/23 02:13:41 by akkim             #+#    #+#             */
+/*   Updated: 2025/06/23 05:10:35 by akkim            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-const chat *ft_parse_printf_format(const char *format, printf_info info)
+const char *ft_parse_printf_format(const char *format, t_info *info)
 {
         ++format;
         // 구조체 초기화
-        info->prec = 0;
+	info->perc = 0;
         info->width = 0;
         info->alt = 0;
         info->spacd = 0;
         info->left = 0;
         info->showsign = 0;
-        
+        info->dot = 0;
+
         // flag 파싱
         do
         {
                 switch(*format)
+                {
                         case ' ':
                                 info->spacd = 1;
                                 continue;
-                        case '#'':
-                                info->alt = 1;
+                        case '#':
+                                info->alt = 1;        ++format;
                                 continue;
                         case '-':
                                 info->left = 1;
@@ -30,27 +44,35 @@ const chat *ft_parse_printf_format(const char *format, printf_info info)
                         case '0':
                                 info->pad = 0;
                                 continue;
-                        daflut:
+                        default:
                                 break;
                 }
                 break;
-        } while (*++format)
-        if (info.left)
-                info->pad = ' ';
+        } while (*++format);
+        if (info->left)
+                info->pad = 0;
+	if (info->showsign)
+		info->spacd = 0;
         // width 파싱
-        if (ft_isdigth(*format))
-                info.width = ft_atoi(*format);      // ft_atoi 수정하여 사용
-        // precision 파싱
-        if (*format == '.')
+        if (ft_isdigit(*format))
         {
-                if (ft_isdigth(*format))
-                        info->prec = ft_atoi(*format);
+                info->width = ft_atoi(format);
+                while (ft_isdigit(*format))
+                        format++;
         }
-        else
-                info->prec = 0;      // "%.?" is treated like "%/0?"
-
+	// percision 파싱
+	if (*format == '.')
+	{
+		if (ft_isdigit(*format))
+			info->perc = ft_atoi(format);
+                        while (ft_isdigit(*format))
+                                format++;
+	}
+	else
+		info->perc = 0;		// "%.?" is treated like "%/0?"
         // typer 체크
-        info->spec = (wchar_t) *format++;
+        info->spec = *format;
+        format++;
         
         return (format);
 }
