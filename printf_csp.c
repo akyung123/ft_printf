@@ -45,3 +45,26 @@ int	ft_printf_string(char *str, t_info *info)
 
 	return (count);
 }
+// 정수를 16진수로 바꿔서 출력 int to hex
+void	ft_printf_to_hex(unsigned long long num)
+{
+	char *base;
+	base = "0123456789abcdef";
+	if (num >= 16)
+		ft_printf_to_hex(num / 16);
+	ft_putchar_fd(base[num % 16], 1);
+}
+// unsigned long long으로 튀어나오면 됨!
+int	ft_printf_pointer(void *addr, t_info *info)
+{
+	int count;
+	unsigned long long num;
+	count = 0;
+
+	num = (unsigned long long)addr;
+
+	write(1, "0x", 2);
+	ft_printf_to_hex(num);
+
+	return (count + 16);
+}

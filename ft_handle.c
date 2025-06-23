@@ -23,10 +23,10 @@ int	ft_handle(va_list arg, t_info *info)
 		count = ft_printf_char((char)va_arg(arg, int), info);		
 	else if (info->spec == 's')	// string (char *)
 		count = ft_printf_string(va_arg(arg, char *), info);
-//	else if (info->spec == 'p')	// void * pointer
-//		count = ft_printf_pointer(va_arg(arg, void *), info);
-//	else if (info->spec == 'd' || info->spec == 'i')	// int, base on 10
-//		count = ft_printf_int(va_arg(arg, int), info);
+	else if (info->spec == 'p')	// void * pointer
+		count = ft_printf_pointer(va_arg(arg, void *), info);
+	else if (info->spec == 'd' || info->spec == 'i')	// int, base on 10
+		count = ft_printf_int(va_arg(arg, int), info);
 //	else if (info->spec == 'u')
 //		count = ft_pritnf_unit(va_arg(arg, unsigned int), info);
 //	else if (info->spec == 'x' || info->spec == 'X')	// hex 10->16
