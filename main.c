@@ -15,8 +15,10 @@
 
 int main()
 {
-	void *p;
+	int d;
 
-	printf("%10p\n", p);
-	ft_printf("%10p", p);
+	d = 2344;
+
+	printf("%12.7d\n", d);
+	ft_printf("%12.7d", d);
 }
