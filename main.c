@@ -15,8 +15,8 @@
 
 int main()
 {
-	char c;
-	c = 'h';
+	char *c;
+	c = "hello";
 
-	ft_printf(" %5c", c);
+	ft_printf(" %-10s", c);
 }

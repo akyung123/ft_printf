@@ -38,7 +38,7 @@ int	ft_printf_string(char *str, t_info *info)
 		ft_putstr_fd(str, 1);
 	count += ft_printf_width(info->width, ft_strlen(str), 1);
 	if (info->left == 0)
-		ft_putstr_fd(1, str);
+		ft_putstr_fd(str, 1);
 	count += ft_strlen(str);
 
 	return (count);

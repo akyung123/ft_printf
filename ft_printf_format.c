@@ -14,7 +14,6 @@
 
 const char *ft_parse_printf_format(const char *format, t_info *info)
 {
-        ++format;
         // 구조체 초기화
 	info->perc = 0;
         info->width = 0;

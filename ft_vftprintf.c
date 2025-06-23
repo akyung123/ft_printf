@@ -18,19 +18,21 @@ int ft_vfprintf(const char *format, va_list arg)
 	t_info info;
 	
 	count = 0;
-        // Loop untill all format string are processed
-        while (*format)
+    // Loop untill all format string are processed
+    while (*format)
+    {
+        if (*format == '%')
         {
-                if (*format == '%')
-                {
-                        format++;                     
-                        format = ft_parse_printf_format(format, &info);
-                        // format에 대한 인자처리
+            format++;                     
+            format = ft_parse_printf_format(format, &info);
+            // format에 대한 인자처리
 			count += ft_handle(arg, &info);
 		}
 		else
+		{
 			ft_putchar_fd(*format, 1);
-		format++;
+			format++;
+		}
 	}
 	return (count);
 }
