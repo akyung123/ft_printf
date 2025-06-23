@@ -19,6 +19,6 @@ int main()
 
 	d = 2344;
 
-	printf("%12.7d\n", d);
-	ft_printf("%12.7d", d);
+	printf("%12.3d\n", d);
+	ft_printf("%12.3d", d);
 }

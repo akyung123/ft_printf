@@ -21,7 +21,7 @@ const char *ft_parse_printf_format(const char *format, t_info *info)
         info->spacd = 0;
         info->left = 0;
         info->showsign = 0;
-        info->dot = 0;
+        info->pad = 1;
 
         // flag 파싱
         do
@@ -49,7 +49,7 @@ const char *ft_parse_printf_format(const char *format, t_info *info)
                 break;
         } while (*++format);
         if (info->left)
-                info->pad = 0;
+                info->pad = 1;
 	if (info->showsign)
 		info->spacd = 0;
         // width 파싱
