@@ -62,6 +62,7 @@ const char *ft_parse_printf_format(const char *format, t_info *info)
 	// percision 파싱
 	if (*format == '.')
 	{
+                format++;
 		if (ft_isdigit(*format))
 			info->perc = ft_atoi(format);
                         while (ft_isdigit(*format))

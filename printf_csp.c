@@ -28,18 +28,20 @@ int	ft_printf_char(char spce, t_info *info)
 int	ft_printf_string(char *str, t_info *info)
 {
 	int	count;
+	size_t len;
 	count = 0;
 
 	if (!str)
 		str = "(null)";
+	len = ft_strlen(str);
 	if (info->perc < ft_strlen(str))
-		ft_strlcpy(str, str,(size_t)info->perc);
+		len = info->perc;
 	if (info->left == 1)
-		ft_putstr_fd(str, 1);
-	count += ft_printf_width(info->width, ft_strlen(str), 1);
+		write(1, str, len);
+	count += ft_printf_width(info->width, len, 1);
 	if (info->left == 0)
-		ft_putstr_fd(str, 1);
-	count += ft_strlen(str);
+		write(1, str, len);
+	count += len;
 
 	return (count);
 }
