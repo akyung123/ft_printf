@@ -16,7 +16,6 @@ int	ft_printf_char(char spce, t_info *info)
 {
 	int	count;
 	count = 0;
-
 	if (info->left == 1)
 		ft_putchar_fd(spce, 1);
 	count += ft_printf_width(info->width, 1, 1);
@@ -32,12 +31,10 @@ int	ft_printf_string(char *str, t_info *info)
 	count = 0;
 
 	if (!str)
-	{
-		write(1, "(nill)", 6);
-		return ();
-	}
+		if (info->dot == 0 || info->perc >= 6)
+			str = "(null)";
 	len = ft_strlen(str);
-	if (info->perc < len)
+	if (info->dot == 1 && info->perc < len)
 		len = info->perc;
 	if (info->left == 1)
 		write(1, str, len);
@@ -49,16 +46,15 @@ int	ft_printf_string(char *str, t_info *info)
 	return (count);
 }
 // 정수를 16진수로 바꿔서 출력 int to hex
-void	ft_printf_to_hex(unsigned long long num, int count)
+int	ft_printf_to_hex(unsigned long long num, int count)
 {
 	char *base;
 	base = "0123456789abcdef";
 	if (num >= 16)
-	{
-		ft_printf_to_hex(num / 16, count);
-		count++;
-	}
+		count = ft_printf_to_hex(num / 16, count);
 	ft_putchar_fd(base[num % 16], 1);
+	count++;
+	return (count);
 }
 // unsigned long long으로 튀어나오면 됨!
 int	ft_printf_pointer(void *addr, t_info *info)
@@ -77,7 +73,7 @@ int	ft_printf_pointer(void *addr, t_info *info)
 	else
 	{
 		write(1, "0x", 2);
-		ft_printf_to_hex(num, count);
+		count = ft_printf_to_hex(num, count) + 2;
 	}
 	return (count);
 }

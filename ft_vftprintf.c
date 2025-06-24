@@ -14,25 +14,26 @@
 
 int ft_vfprintf(const char *format, va_list arg)
 {
-    int	count;
+	int	count;
 	t_info info;
 	
 	count = 0;
-    // Loop untill all format string are processed
-    while (*format)
-    {
-        if (*format == '%')
-        {
-            format++;                     
-            format = ft_parse_printf_format(format, &info);
-            // format에 대한 인자처리
+    	// Loop untill all format string are processed
+    	while (*format)
+    	{
+		if (*format == '%')
+	    	{
+            		format++;                     
+            		format = ft_parse_printf_format(format, &info);
+            		// format에 대한 인자처리
 			count += ft_handle(arg, &info);
 		}
 		else
 		{
 			ft_putchar_fd(*format, 1);
 			format++;
+			count++;
 		}
-	}
+    	}
 	return (count);
 }

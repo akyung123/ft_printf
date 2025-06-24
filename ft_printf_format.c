@@ -22,6 +22,7 @@ const char *ft_parse_printf_format(const char *format, t_info *info)
         info->left = 0;
         info->showsign = 0;
         info->pad = 1;
+	info->dot = 0;
 
         // flag 파싱
         do
@@ -63,6 +64,7 @@ const char *ft_parse_printf_format(const char *format, t_info *info)
 	if (*format == '.')
 	{
                 format++;
+		info->dot = 1;
 		if (ft_isdigit(*format))
 			info->perc = ft_atoi(format);
                         while (ft_isdigit(*format))
