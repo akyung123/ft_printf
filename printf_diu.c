@@ -9,7 +9,13 @@ int ft_intlen(int num)
 {
 	int l;
 	l = 0;
-
+	if (num == 0)
+		return (1);
+	if(num < 0)
+	{
+		l++;
+		num *= -1;
+	}
 	while (num > 0)
 	{
 		num /= 10;
@@ -35,19 +41,24 @@ int	ft_printf_int(int n, t_info *info)
 	int l;
 	char *spce;
 
-	count = 0;
 	len = ft_intlen(n);
 	l = info->perc;
-	if (info->showsign == 1 || info ->spacd == 1)
+	if (info->perc < len)
+		l = len;
+	if ((info->showsign == 1 || info ->spacd == 1) && n >= 0)
 		l++;
+	count = info->width + len - l;
 	if (info->left == 1)
 	{
 		if (info->showsign == 1 || info->spacd == 1)
 		{
-			if( n < 0)
-				write(1, "-", 1);
-			if (info->showsign ==1 && n > 0)
-				write(1, "+", 1);
+			if (n > 0)
+			{
+				if(info->showsign == 1)
+					write(1, "+", 1);
+				if(info->spacd == 1)
+					write(1, " ", 1);
+			}
 		}
 		if (info->perc > len)
 			ft_print_perc(info->perc - len);
@@ -58,18 +69,19 @@ int	ft_printf_int(int n, t_info *info)
 	{
 		if (info->showsign == 1 || info->spacd == 1)
 		{
-			if( n < 0)
-				write(1, "-", 1);
-			if (info->showsign ==1 && n > 0)
-				write(1, "+", 1);
-			if (info->spacd == 1 && n > 0)
-				write(1, " ", 1);			
-		}
+			if (n > 0)
+			{
+				if(info->showsign == 1)
+					write(1, "+", 1);
+				if(info->spacd == 1)
+					write(1, " ", 1);
+			}
+		}		
 		if (info->perc > len)
 			ft_print_perc(info->perc - len);
 		ft_putnbr_fd(n, 1);
 	}
-	return (count + info->width);
+	return (count);
 }
 
 void	ft_pritnf_unit(int num, t_info info)
