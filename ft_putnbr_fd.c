@@ -37,9 +37,7 @@ void	ft_putnbr_fd(int n, int fd)
 void	ft_putunbr_fd(unsigned int n, int fd)
 {
 	char	num;
-	
-	if (n == 0)
-		return ;
+
 	if (n > 9)
 	{
 		ft_putnbr_fd(n / 10, fd);

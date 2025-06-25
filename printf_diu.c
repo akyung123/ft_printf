@@ -47,10 +47,15 @@ int ft_unintlen(unsigned int num)
 
 
 
-void	ft_print_perc(int len)
+void	ft_print_perc(int len, int pad)
 {
+	char c;
+	if (pad == 0)
+		c = '0';
+	else 
+		c = ' ';
 	while(len-- > 0)
-		write(1, "0", 1);
+		write(1, c, 1);
 }
 
 // - , +, ' ', 0 flag 고려하기
@@ -97,7 +102,7 @@ int	ft_printf_int(int n, t_info *info)
 			}
 		}
 		if (info->perc > len)
-			ft_print_perc(l - len);
+			ft_print_perc(l - len, info->pad);
 		ft_putnbr_fd(n, 1);
 	}
 	count += ft_printf_width(info->width, l, info->pad);
@@ -114,7 +119,7 @@ int	ft_printf_int(int n, t_info *info)
 			}
 		}		
 		if (info->perc > len)
-			ft_print_perc(l - len);
+			ft_print_perc(l - len, info->pad);
 		ft_putnbr_fd(n, 1);
 	}
 	return (count);
@@ -135,14 +140,14 @@ void	ft_pritnf_unit(unsigned int n, t_info *info)
 	if (info->left == 1)
 	{
 		if (l > len)
-			ft_print_perc(l - len);
+			ft_print_perc(l - len, info->pad);
 		ft_putunbr_fd(n, 1);
 	}
-	count += ft_printf_width(info->width, l, info->pad);
+	count += ft_printf_width(info->width, l, 1);
 	if (info->left == 0)
 	{
 		if (l > len)
-			ft_print_perc(l - len);
+			ft_print_perc(l - len, info->pad);
 		ft_putunbr_fd(n, 1);
 	}
 	return (count + 1);
