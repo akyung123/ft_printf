@@ -72,6 +72,8 @@ const char *ft_parse_printf_format(const char *format, t_info *info)
 	}
 	else
 		info->perc = 0;		// "%.?" is treated like "%/0?"
+	if (info->dot)
+		info->pad = 1;
         // typer 체크
         info->spec = *format;
         format++;
