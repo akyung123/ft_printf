@@ -28,8 +28,13 @@ int	ft_vfprintf(const char *format, va_list arg);
 int	ft_handle(va_list arg, t_info *info);
 int	ft_printf_char(char spce, t_info *info);
 int	ft_printf_string(char *str, t_info *info);
-int	ft_pritnf_width(unsigned int width, int length, int pad);
+int     ft_printf_pointer(void *ptr, t_info *info);
+int	ft_printf_int(int n, t_info *info);
+int     ft_printf_unit(unsigned int n, t_info *info);
+int	ft_printf_width(int width, int length);
+int     ft_printf_perc(int n, t_info *info, int perc);
 const char *ft_parse_printf_format(const char *format, t_info *info);
+int        ft_printf_to_hex(unsigned long long num, int count);
 
 
 int	ft_atoi(const char *str);

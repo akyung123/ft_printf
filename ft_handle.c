@@ -28,9 +28,9 @@ int	ft_handle(va_list arg, t_info *info)
 	else if (info->spec == 'd' || info->spec == 'i')	// int, base on 10
 		count = ft_printf_int(va_arg(arg, int), info);
 	else if (info->spec == 'u')
-		count = ft_pritnf_unit(va_arg(arg, unsigned int), info);
-//	else if (info->spec == 'x' || info->spec == 'X')	// hex 10->16
-//		count = ft_printf_hex(va_arg(arg, unsigned int), info);
+		count = ft_printf_unit(va_arg(arg, unsigned int), info);
+	else if (info->spec == 'x' || info->spec == 'X')	// hex 10->16
+		count = ft_printf_hex(va_arg(arg, unsigned int), info);
 	else if (info->spec == '%')
 	{
 		count++;

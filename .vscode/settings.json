@@ -2,6 +2,8 @@
 	"C_Cpp.errorSquiggles": "disabled",
 	"files.associations": {
 		"stdio.h": "c",
-		"ft_printf.h": "c"
+		"ft_printf.h": "c",
+		"printf_diu": "c",
+		"*.": "c"
 	}
 }

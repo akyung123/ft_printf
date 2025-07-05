@@ -33,7 +33,7 @@ const char *ft_parse_printf_format(const char *format, t_info *info)
                                 info->spacd = 1;
                                 continue;
                         case '#':
-                                info->alt = 1;        ++format;
+                                info->alt = 1;
                                 continue;
                         case '-':
                                 info->left = 1;
@@ -46,9 +46,11 @@ const char *ft_parse_printf_format(const char *format, t_info *info)
                                 continue;
                         default:
                                 break;
+                                //goto end_parse;
                 }
                 break;
         } while (*++format);
+        // end_parse:
         if (info->left)
                 info->pad = 1;
 	if (info->showsign)

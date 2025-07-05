@@ -5,7 +5,8 @@
 // width는 빈공간 출력.
 
 // int 변수 크기 재는 법
-int ft_intlen(int num)
+ 
+int ft_unintlen(unsigned int num)
 {
 	int l;
 	l = 0;
@@ -14,24 +15,6 @@ int ft_intlen(int num)
 	if (num == -2147483648)
 		return (11);
 	if(num < 0)
-		num *= -1;
-	while (num > 0)
-	{
-		num /= 10;
-		l++;
-	}
-	return (l);
-}
-
-int ft_unintlen(unsigned int num)
-{
-	int l;
-	l = 0;
-	if (num == 0)
-		return (0);
-	if (num == -2147483648)
-		return (11);
-	if(num < 0)
 	{
 		l++;
 		num *= -1;
@@ -44,98 +27,36 @@ int ft_unintlen(unsigned int num)
 	return (l);
 }
 
-
-
-void	ft_print_perc(int len, int pad)
+int ft_printf_u_perc(unsigned int n, t_info *info, int perc)
 {
-	char c;
-	if (pad == 0)
-		c = '0';
-	else 
-		c = ' ';
-	while(len-- > 0)
-		write(1, &c, 1);
-}
-
-// - , +, ' ', 0 flag 고려하기
-// + : 양수 +, 음수 - 표시
-// ' ' : 양수 ' '. 음수 - 표시
-// 0 : width 남는 공간 0으로 채우기
-int	ft_printf_int(int n, t_info *info)
-{
-	int	count;
-	int len;
-	int l;
-	int w;
-	char *spce;
-
-	len = ft_intlen(n);
-	l = info->perc;
-	w = info->width;
-
-	if (info->dot != 1 && (l < len || l != 0 ))
-		l = len;
-	// 만약, perc값이 존재하지 않는다면(예 : %.d, %10.d 등)
-	if (info->showsign == 1)
-		l++;
-	if (info->spacd == 1 && n > 0)
-		l++;
-	count = info->width + l;
-	// len : 실제로 출력되는 숫자의 길이, 무조건 다 출력됨
-	// 만약, perc가 len보다 작다면
-	// count + 추가적으로 출력되는 크기
-	// len - perc
-	if (info->left == 1)
-	{
-		if (info->showsign == 1 || info->spacd == 1)
-		{
-			if (n < 0)
-			{
-				write(1, "-", 1);
-				n *= -1;
-				l--;
-			}
-			else if (n > 0)
-			{
-				if(info->showsign == 1)
-					write(1, "+", 1);
-				if(info->spacd == 1)
-					write(1, " ", 1);
-				l--;
-			}
-		}
-		if (info->perc > len)
-			ft_print_perc(l - len, 0);
-		ft_putnbr_fd(n, 1);
-	}
-	count += ft_printf_width(info->width, l, info->pad);
-	if (info->left == 0)
-	{
-		if (info->showsign == 1 || info->spacd == 1)
-		{
-			if (n < 0)
-			{
-				write(1, "-", 1);
-				n *= -1;
-				l--;
-			}
-			else if (n > 0)
-			{
-				if(info->showsign == 1)
-					write(1, "+", 1);
-				if(info->spacd == 1)
-					write(1, " ", 1);
-				l--;
-			}
-		}		
-		if (info->perc > len)
-			ft_print_perc(l - len, 0);
-		ft_putnbr_fd(n, 1);
-	}
+	int count;
+	count = 0;
+	if (perc > 0)
+		count = perc;
+	while (perc-- > 0)
+		write(1, "0", 1);
+	ft_putunbr_fd(n, 1);
+	count += ft_unintlen(n);
 	return (count);
 }
 
-void	ft_pritnf_unit(unsigned int n, t_info *info)
+int ft_printf_u_width(int width, int pad)
+{
+	int count;
+
+	if (width < 0)
+		return (0);
+	count = width;
+	if (pad == 0)
+		while (width-- > 0)
+			write(1, "0", 1);
+	else
+		while (width-- > 0)
+			write(1, " ", 1);
+	return (count);
+}
+
+int	ft_printf_unit(unsigned int n, t_info *info)
 {
 	int	count;
 	int	len;
@@ -143,23 +64,13 @@ void	ft_pritnf_unit(unsigned int n, t_info *info)
 
 	count = 0;
 	len = ft_unintlen(n);
-	if (len < info->perc)
-		l = info->perc;
-	else 
-		l = len;
+	l = info->width - info->perc;
+	if (len > info->perc)
+		l = info->width - len;
 	if (info->left == 1)
-	{
-		if (l > len)
-			ft_print_perc(info->perc - len, 0);
-		ft_putunbr_fd(n, 1);
-	}
-	count += ft_printf_width(info->width, l, info->pad);
+		count += ft_printf_u_perc(n, info, info->perc - len);
+	count += ft_printf_u_width(l, info->pad);
 	if (info->left == 0)
-	{
-		if (l > len)
-			ft_print_perc(info->perc - len, 0);
-		ft_putunbr_fd(n, 1);
-	}
-	return (count + 1);
+		count += ft_printf_u_perc(n, info, info->perc - len);
+	return (count);
 }
-
