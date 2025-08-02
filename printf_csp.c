@@ -74,6 +74,23 @@ int ft_printf_addr(unsigned long long num)
 	return (count);
 }
 
+int ft_len_addr(void *ptr)
+{
+	int len;
+	unsigned long addr;
+
+	addr = (unsigned long)ptr;
+	len = 0;
+	if (addr == 0)
+		return (3);
+	while (addr > 0)
+	{
+		addr >>= 4;
+		len++;
+	}
+	return (len + 2);
+}
+
 // unsigned long long으로 튀어나오면 됨!
 int	ft_printf_pointer(void *addr, t_info *info)
 {
@@ -83,7 +100,8 @@ int	ft_printf_pointer(void *addr, t_info *info)
 
 	count = 0;
 	num = (unsigned long long)addr;
-	l = info->width - 14;
+	l = info->width - ft_len_addr(addr);
+	if (l)
 	if (num == 0)
 		l = info->width - 5; // "(nil)"의 길이
 	if (info->left == 1)

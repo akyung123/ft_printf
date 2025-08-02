@@ -1,15 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_put_fuction.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akkim <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: akkim <akkim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 18:25:48 by akkim             #+#    #+#             */
-/*   Updated: 2025/04/08 18:27:46 by akkim            ###   ########.fr       */
+/*   Created: 2025/04/08 18:12:38 by akkim             #+#    #+#             */
+/*   Updated: 2025/08/03 01:19:46 by akkim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
+
+void	ft_putchar_fd(char c, int fd)
+{
+	if (fd < 0)
+		return ;
+	write(fd, &c, 1);
+}
 
 void	ft_putnbr_fd(int n, int fd)
 {
@@ -18,6 +26,11 @@ void	ft_putnbr_fd(int n, int fd)
 	if (n == -2147483648)
 	{
 		write(fd, "2147483648", 10);
+		return ;
+	}
+	else if (n == 0)
+	{
+		write(fd, "0", 1);
 		return ;
 	}
 	else if (n < 0)
@@ -38,8 +51,6 @@ void	ft_putunbr_fd(unsigned int n, int fd)
 {
 	char	num;
 
-//	if (n == 0)
-//		return ;
 	if (n > 9)
 	{
 		ft_putnbr_fd(n / 10, fd);
@@ -52,3 +63,13 @@ void	ft_putunbr_fd(unsigned int n, int fd)
 	}
 }
 
+void	ft_putstr_fd(char *s, int fd)
+{
+	size_t	i;
+	size_t	len;
+
+	len = ft_strlen(s);
+	i = 0;
+	while (i < len)
+		ft_putchar_fd(s[i++], fd);
+}

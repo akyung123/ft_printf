@@ -11,6 +11,8 @@ int	ft_printf_to_Hex(unsigned int num, int count)
 		ft_putchar_fd(base[num % 16], 1);
 		count++;
 	}
+	if (num == 0)
+		ft_putchar_fd('0', 1);
 	return (count);
 }
 int	ft_printf_int_to_hex(unsigned int num, int count)
@@ -23,6 +25,22 @@ int	ft_printf_int_to_hex(unsigned int num, int count)
 	count++;
 	return (count);
 }
+
+int ft_hexlen(unsigned int num)
+{
+	int l;
+	l = 0;
+	if (num == 0)
+		return (1);
+	while (num > 0)
+	{
+		num /= 16;
+		l++;
+	}
+	return (l);
+}
+
+
 int ft_printf_hex_perc(unsigned int n, t_info *info, int perc)
 {
 	int count;
@@ -47,9 +65,9 @@ int ft_printf_hex_perc(unsigned int n, t_info *info, int perc)
 	if (n != 0 && info->alt == 1)
 	{
 		if (info->spec == 'X')
-			write(0, "0X", 2);
+			write(1, "0X", 2);
 		else if (info->spec == 'x')
-			write(0, "0x", 2);
+			write(1, "0x", 2);
 	}
 	while (perc-- > 0)
 		write(1, "0", 1);
@@ -60,23 +78,6 @@ int ft_printf_hex_perc(unsigned int n, t_info *info, int perc)
 	count += ft_hexlen(n);
 	return (count);
 }
-
-int ft_hexlen(unsigned int num)
-{
-	int l;
-	l = 0;
-	if (num == 0)
-		return (1);
-	if(num < 0)
-		num *= -1;
-	while (num > 0)
-	{
-		num /= 16;
-		l++;
-	}
-	return (l);
-}
-
 int	ft_printf_hex(unsigned int n, t_info *info)
 {
 	int count;
@@ -90,7 +91,7 @@ int	ft_printf_hex(unsigned int n, t_info *info)
 	l = info->width - info->perc;
 	if (len > info->perc)
 		l = info->width - len;
-	if (info->alt == 1)
+	if (info->alt == 1 && n != 0)
 	{
 		l -= 2; // "0x"를 더해줌
 		count += 2; 

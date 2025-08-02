@@ -5,7 +5,7 @@ int ft_intlen(int num)
 	int l;
 	l = 0;
 	if (num == 0)
-		return (0);
+		return (1);
 	if (num == -2147483648)
 		return (11);
 	if(num < 0)
@@ -40,8 +40,7 @@ int ft_printf_perc(int n, t_info *info, int perc)
 		count += ft_printf_pad(n, info);
 	while (perc-- > 0)
 		write(1, "0", 1);
-	if (n != 0)
-		ft_putnbr_fd(n, 1);
+	ft_putnbr_fd(n, 1);
 	count += ft_intlen(n);
 	return (count);
 }
@@ -66,7 +65,7 @@ int ft_printf_pad(int n, t_info *info)
 {
 	if (n < 0)
 		return (write(1, "-", 1), 0);
-	else if (n > 0 && (info->spacd == 1 || info->showsign == 1))
+	else if (n >= 0 && (info->spacd == 1 || info->showsign == 1))
 	{
 		if (info->showsign == 1)
 			return (write(1, "+", 1), 1);
@@ -76,7 +75,7 @@ int ft_printf_pad(int n, t_info *info)
 	return (0);
 }
 
-int	ft_printf_int_width(int n, int width, int pad, t_info *info)
+int	ft_printf_int_width(int width, int pad)
 {	
 	int count;
 
@@ -111,7 +110,7 @@ int	ft_printf_int(int n, t_info *info)
 		count += ft_printf_perc(n, info, info->perc - len);
 	if(info->pad == 0)
 		count += ft_printf_pad(n, info);
-	count += ft_printf_int_width(n, l, info->pad, info);
+	count += ft_printf_int_width(l, info->pad);
 	if (info->left == 0)
 		count += ft_printf_perc(n, info, info->perc - len);
 	return (count);

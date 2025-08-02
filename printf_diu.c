@@ -12,13 +12,6 @@ int ft_unintlen(unsigned int num)
 	l = 0;
 	if (num == 0)
 		return (1);
-	if (num == -2147483648)
-		return (11);
-	if(num < 0)
-	{
-		l++;
-		num *= -1;
-	}
 	while (num > 0)
 	{
 		num /= 10;
@@ -27,7 +20,7 @@ int ft_unintlen(unsigned int num)
 	return (l);
 }
 
-int ft_printf_u_perc(unsigned int n, t_info *info, int perc)
+int ft_printf_u_perc(unsigned int n, int perc)
 {
 	int count;
 	count = 0;
@@ -68,9 +61,9 @@ int	ft_printf_unit(unsigned int n, t_info *info)
 	if (len > info->perc)
 		l = info->width - len;
 	if (info->left == 1)
-		count += ft_printf_u_perc(n, info, info->perc - len);
+		count += ft_printf_u_perc(n, info->perc - len);
 	count += ft_printf_u_width(l, info->pad);
 	if (info->left == 0)
-		count += ft_printf_u_perc(n, info, info->perc - len);
+		count += ft_printf_u_perc(n, info->perc - len);
 	return (count);
 }

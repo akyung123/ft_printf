@@ -1,24 +1,26 @@
 NAME = libftprintf.a
-
-SRC = $(wildcard *.c)
-OBJ = $(SRC:.c=.o)
-
+SRCS = $(wildcard *.c)
+OBJS = $(SRCS:.c=.o)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
+HEADER = ft_printf.h
 
-INCLUDES = ft_printf.h
-
+.PHONY: all
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+$(NAME): $(OBJS)
+	@ar rcs $@ $^
 
-%.o: %.c $(INCLUDES)
+%.o : %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+.PHONY: bonus
+bonus : $(OBJS)
+	@ar rcs $(NAME) $^
+
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)
