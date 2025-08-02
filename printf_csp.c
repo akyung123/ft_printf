@@ -34,7 +34,7 @@ int	ft_printf_string(char *str, t_info *info)
 		if (info->dot == 0 || info->perc >= 6)
 			str = "(null)";
 	len = ft_strlen(str);
-	if (info->dot == 1 && info->perc < len)
+	if (info->dot == 1 && info->perc < (int)len)
 		len = info->perc;
 	if (info->left == 1)
 		write(1, str, len);
@@ -61,7 +61,6 @@ int ft_printf_addr(unsigned long long num)
 {
 	int count;
 	int l;
-	unsigned long long n;
 
 	count = 0;
 	if (num == 0)

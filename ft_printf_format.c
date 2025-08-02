@@ -69,8 +69,8 @@ const char *ft_parse_printf_format(const char *format, t_info *info)
 		info->dot = 1;
 		if (ft_isdigit(*format))
 			info->perc = ft_atoi(format);
-                        while (ft_isdigit(*format))
-                                format++;
+                while (ft_isdigit(*format))
+                        format++;
 	}
 	else
 		info->perc = 0;		// "%.?" is treated like "%/0?"

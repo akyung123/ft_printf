@@ -33,11 +33,13 @@ int	ft_printf_int(int n, t_info *info);
 int     ft_printf_unit(unsigned int n, t_info *info);
 int	ft_printf_width(int width, int length);
 int     ft_printf_perc(int n, t_info *info, int perc);
+int     ft_printf_hex(unsigned int n, t_info *info);
 const char *ft_parse_printf_format(const char *format, t_info *info);
 int        ft_printf_to_hex(unsigned long long num, int count);
 
 
 int	ft_atoi(const char *str);
+size_t	ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
